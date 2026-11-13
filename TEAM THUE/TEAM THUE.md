@@ -1,11 +1,11 @@
 ---
 tags: [team]
 ---
-# TEAM A
+# TEAM THUE
 
-Khu làm việc của Team A. Chỉ sửa trong thư mục này.
+Khu làm việc của Team Thue. Chỉ sửa trong thư mục này.
 
-Thuộc: [[PHONG BAN]]
+Thuộc: [[KE TOAN]]
 
 ## Danh sách
 - [ ] Việc cần làm | Người phụ trách | Hạn | Trạng thái

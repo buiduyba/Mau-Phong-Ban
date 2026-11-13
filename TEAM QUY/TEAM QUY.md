@@ -1,11 +1,11 @@
 ---
 tags: [team]
 ---
-# TEAM C
+# TEAM QUY
 
-Khu làm việc của Team C. Chỉ sửa trong thư mục này.
+Khu làm việc của Team Quy. Chỉ sửa trong thư mục này.
 
-Thuộc: [[PHONG BAN]]
+Thuộc: [[KE TOAN]]
 
 ## Danh sách
 - [ ] Việc cần làm | Người phụ trách | Hạn | Trạng thái
