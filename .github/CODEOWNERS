@@ -1,9 +1,9 @@
 # Người phụ trách duyệt pull request. Dòng sau thắng dòng trước.
 # Dấu cách trong đường dẫn phải viết thành "\ ".
+# File này sẽ được tạo lại khi chạy Khoi-Tao-Phong-Ban.ps1.
 
-# Mặc định: người phụ trách chung
-*                                   @ke-toan-truong
+# Mặc định: người phụ trách chung (thay bằng tài khoản GitHub thật, ví dụ @ten-tai-khoan)
+# *                                   @ten-tai-khoan
 
-# Từng team: thêm người phụ trách riêng nếu cần
-# /TEAM\ THUE/                           @ten-tai-khoan-github
-# /TEAM\ QUY/                           @ten-tai-khoan-github
+# Từng team: thêm người phụ trách riêng nếu cần, ví dụ
+# /TEAM\ A/                           @ten-tai-khoan-github
