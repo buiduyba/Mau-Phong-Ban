@@ -1,0 +1,19 @@
+{
+  "autoSaveInterval": 10,
+  "autoPushInterval": 0,
+  "autoPullInterval": 10,
+  "autoPullOnBoot": true,
+  "autoBackupAfterFileChange": false,
+  "differentIntervalCommitAndPush": false,
+  "disablePush": false,
+  "pullBeforePush": true,
+  "syncMethod": "merge",
+  "autoCommitMessage": "Cập nhật tự động {{date}} ({{hostname}})",
+  "commitMessage": "Cập nhật {{date}} ({{hostname}})",
+  "autoCommitOnlyStaged": false,
+  "showStatusBar": true,
+  "showBranchStatusBar": true,
+  "showErrorNotices": true,
+  "disablePopupsForNoChanges": true,
+  "refreshSourceControl": true
+}

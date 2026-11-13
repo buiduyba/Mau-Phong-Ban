@@ -1,0 +1,54 @@
+name: Đồng bộ main vào nhánh team
+
+# Mỗi khi main có thay đổi, merge main vào từng nhánh Team-* để các team nhận bản mới của nhau.
+# Danh sách nhánh được tìm tự động, không cần sửa file này khi thêm hoặc bớt team.
+# Nếu có xung đột, job báo lỗi để người phụ trách nhánh xử lý bằng tay.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tim-nhanh:
+    runs-on: ubuntu-latest
+    outputs:
+      branches: ${{ steps.liet-ke.outputs.branches }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: liet-ke
+        name: Liệt kê các nhánh Team-*
+        run: |
+          list=$(git for-each-ref --format='%(refname:short)' 'refs/remotes/origin/Team-*' | sed 's#^origin/##' | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "branches=${list}" >> "$GITHUB_OUTPUT"
+          echo "Các nhánh team: ${list}"
+
+  sync:
+    needs: tim-nhanh
+    if: needs.tim-nhanh.outputs.branches != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: ${{ fromJSON(needs.tim-nhanh.outputs.branches) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+          fetch-depth: 0
+
+      - name: Merge main vào ${{ matrix.branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git merge origin/main --no-edit -m "Đồng bộ main vào ${{ matrix.branch }}"; then
+            git merge --abort
+            echo "::error::Xung đột khi merge main vào ${{ matrix.branch }}. Hãy merge main vào nhánh này trên máy và giải quyết xung đột."
+            exit 1
+          fi
+          git push origin HEAD:${{ matrix.branch }}

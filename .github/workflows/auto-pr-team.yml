@@ -1,0 +1,38 @@
+name: Tự mở pull request từ nhánh team
+
+# Khi thành viên đẩy lên một nhánh Team-*, tự mở pull request vào main (nếu chưa có và có thay đổi thật).
+# Người phụ trách chỉ cần duyệt và merge bằng "Create a merge commit".
+# Cần bật: Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests".
+on:
+  push:
+    branches: ['Team-*']
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mở pull request nếu chưa có
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="${GITHUB_REF_NAME}"
+          if git diff --quiet "origin/main" "origin/${branch}"; then
+            echo "Không có thay đổi nội dung so với main, bỏ qua."
+            exit 0
+          fi
+          open=$(gh pr list --head "${branch}" --base main --state open --json number --jq 'length')
+          if [ "${open}" != "0" ]; then
+            echo "Đã có pull request đang mở cho ${branch}."
+            exit 0
+          fi
+          gh pr create --base main --head "${branch}" \
+            --title "Cập nhật từ ${branch}" \
+            --body "Pull request tự động mở khi có thay đổi trên nhánh ${branch}. Người phụ trách duyệt rồi merge bằng Create a merge commit."

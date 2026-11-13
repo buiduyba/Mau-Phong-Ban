@@ -1,0 +1,11 @@
+---
+tags: [core]
+---
+# PHONG BAN
+
+Lõi của vault Phòng Ban Mẫu. Các thư mục bên dưới là các team.
+
+## Các team
+- [[TEAM A]]
+- [[TEAM B]]
+- [[TEAM C]]

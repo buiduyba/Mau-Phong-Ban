@@ -1,0 +1,20 @@
+# Khoá bí mật và cấu hình riêng từng người: không đưa lên Git.
+# Mặc định chặn mọi data.json của plugin, chỉ cho phép plugin đã kiểm tra không có khoá (bên dưới).
+.obsidian/plugins/*/data.json
+!.obsidian/plugins/obsidian-git/data.json
+# Khi cài thêm plugin, kiểm tra data.json của nó có chứa API key hay không rồi mới thêm dòng "!" cho nó.
+
+# Bố cục cửa sổ và cache riêng từng người
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.trash/
+
+# Script tạm do plugin Obsidian Git tạo ra
+.obsidian/plugins/obsidian-git/obsidian_askpass.sh
+
+# File sao lưu và file tạm
+*.bak
+*.bak2
+.DS_Store
+Thumbs.db
