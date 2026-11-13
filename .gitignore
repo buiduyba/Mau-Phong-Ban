@@ -3,6 +3,7 @@
 .obsidian/plugins/*/data.json
 !.obsidian/plugins/obsidian-git/data.json
 # Khi cài thêm plugin, kiểm tra data.json của nó có chứa API key hay không rồi mới thêm dòng "!" cho nó.
+# Cosmic Engine lưu Anthropic API key trong data.json của nó: giữ nguyên bị chặn, mỗi người tự nhập key trên máy mình.
 
 # Bố cục cửa sổ và cache riêng từng người
 .obsidian/workspace.json

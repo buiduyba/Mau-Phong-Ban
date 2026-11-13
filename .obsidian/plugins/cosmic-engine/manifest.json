@@ -1,0 +1,9 @@
+{
+  "id": "cosmic-engine",
+  "name": "Cosmic Engine",
+  "version": "0.1.0",
+  "minAppVersion": "1.4.0",
+  "description": "Bản đồ quỹ đạo 3D của vault: cụm thư mục, liên kết, link hỏng, gợi ý nối và hỏi đáp trên note.",
+  "author": "Duy",
+  "isDesktopOnly": false
+}

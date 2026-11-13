@@ -32,7 +32,7 @@ Bấm chuột phải `Cai-Dat-Vault.ps1`, chọn **Run with PowerShell**, chọn
 | `.github/workflows/sync-main-to-teams.yml` | Khi `main` đổi, tự merge `main` vào mọi nhánh `Team-*` |
 | `.github/CODEOWNERS` | Người duyệt pull request |
 | `.gitignore` | Chặn file chứa khoá bí mật và cấu hình riêng từng người |
-| `.obsidian/` | Cấu hình Obsidian và plugin Obsidian Git (tự lưu và đẩy mỗi 10 phút) |
+| `.obsidian/` | Cấu hình Obsidian và hai plugin: Obsidian Git (tự lưu và đẩy mỗi 10 phút) và Cosmic Engine (bản đồ 3D của vault) |
 | `PHONG BAN.md`, `TEAM A/`, `TEAM B/`, `TEAM C/` | Vault mẫu. Được đổi theo cấu hình khi khởi tạo |
 
 Hai workflow tự tìm các nhánh `Team-*`, nên thêm hoặc bớt team không cần sửa workflow.
@@ -45,6 +45,8 @@ Hai workflow tự tìm các nhánh `Team-*`, nên thêm hoặc bớt team không
 
 ## Lưu ý
 
-- Plugin Obsidian Git (tác giả Vinzent03) đi kèm trong `.obsidian/plugins/obsidian-git` để vault chạy ngay.
+- Plugin Obsidian Git (tác giả Vinzent03) và Cosmic Engine (tác giả Duy) đi kèm trong `.obsidian/plugins` để vault chạy ngay.
+- Cosmic Engine lấy tên thư mục vault làm note lõi và tự cập nhật danh sách team trong note lõi, ở đoạn nằm giữa hai dấu `cosmic-map:start` và `cosmic-map:end`. Đừng xoá hai dấu này.
+- Cosmic Engine chỉ gọi Anthropic API khi người dùng tự nhập API key trong cài đặt plugin. Key lưu trên máy từng người (`data.json` bị `.gitignore` chặn), nội dung note được gửi tới Anthropic khi dùng tính năng hỏi đáp, và mặc định Claude có thể ghi vào vault. Phòng ban nên thống nhất có dùng tính năng này hay không.
 - Khi cài thêm plugin khác, kiểm tra `data.json` của nó có chứa API key hay không trước khi cho phép đưa lên Git (xem `.gitignore`).
 - Không đưa API key, mật khẩu hay file lớn vào repo.

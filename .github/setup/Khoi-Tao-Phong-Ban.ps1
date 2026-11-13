@@ -75,8 +75,9 @@ try {
     Write-Host 'Đã tạo .github/setup/Cai-Dat-Vault.ps1 (file gửi cho thành viên).' -ForegroundColor Green
 
     # 3. Note lõi và thư mục từng team
-    $links = ($Teams | ForEach-Object { '- [[TEAM ' + $_.ToUpper() + ']]' }) -join "`n"
-    $noteLoi = "---`ntags: [core]`n---`n# $TenThuMuc`n`nLõi của vault $TenPhongBan. Các thư mục bên dưới là các team.`n`n## Các team`n$links`n"
+    # Cặp dấu cosmic-map là chỗ plugin Cosmic Engine tự cập nhật danh sách hành tinh. Thiếu cặp dấu này plugin sẽ bỏ qua note lõi.
+    $links = (@($Teams | ForEach-Object { 'TEAM ' + $_.ToUpper() } | Sort-Object) | ForEach-Object { '- [[' + $_ + ']]' }) -join "`n"
+    $noteLoi = "---`ntags: [core]`n---`n# $TenThuMuc`n`nLõi của vault $TenPhongBan. Các thư mục bên dưới là các hành tinh quay quanh lõi.`n`n<!-- cosmic-map:start -->`n## Hành tinh`n$links`n<!-- cosmic-map:end -->`n"
     $fileLoi = Join-Path $Goc ($TenThuMuc + '.md')
     $taoLoi = -not (Test-Path -LiteralPath $fileLoi)
     if (-not $taoLoi) {
@@ -86,12 +87,15 @@ try {
     if ($taoLoi) {
         Viet-File $fileLoi $noteLoi
     } else {
-        # Note lõi đã có người sửa: chỉ bổ sung link team còn thiếu, không ghi đè
-        foreach ($t in $Teams) {
-            $lk = '[[TEAM ' + $t.ToUpper() + ']]'
-            if (-not $cu.Contains($lk)) { $cu = $cu.TrimEnd() + "`n- $lk`n" }
+        # Note lõi đã có người sửa: không ghi đè. Nếu có cặp dấu cosmic-map thì plugin Cosmic Engine tự cập nhật,
+        # nếu không có thì chỉ bổ sung link team còn thiếu.
+        if (-not $cu.Contains('<!-- cosmic-map:start -->')) {
+            foreach ($t in $Teams) {
+                $lk = '[[TEAM ' + $t.ToUpper() + ']]'
+                if (-not $cu.Contains($lk)) { $cu = $cu.TrimEnd() + "`n- $lk`n" }
+            }
+            Viet-File $fileLoi $cu
         }
-        Viet-File $fileLoi $cu
     }
     $loiCu = Join-Path $Goc 'PHONG BAN.md'
     if (($TenThuMuc -ne 'PHONG BAN') -and (Test-Path -LiteralPath $loiCu)) { Remove-Item -LiteralPath $loiCu -Force }
